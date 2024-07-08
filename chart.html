@@ -20,28 +20,57 @@
             <canvas id="chart_genl" width="500" height="200"></canvas>
         </div>
     </div>
+
+    <h1>3.圓餅圖(籌碼)</h1>
+    <div class="col-8 offset-2 my-5">
+        <div class="card">
+            <canvas id="pie" width="500" height="200"></canvas>
+        </div>
+    </div>
     <script src="/js/jquery-3.7.1.js"></script>
     <script src="/js/chart.js"></script>
 
-    <script>
-        const ctx = document.getElementById('chart_genl');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-                datasets: [{
-                    label: '台股加權指數',
-                    backgroundColor: 'rgb(255,99,132)',
-                    borderColor: 'rgb(122,99,132)',
-                    data: [19879, 20200, 20417, 20736, 20213, 19857, 20222, 20560, 21002, 21363, 22408, 23908],
-                    borderWidth: 2
-                }]
-            },
-            // options: {
-              
-            // }
-        });
-    </script>
+    
+
+<script>
+    const ctx = document.getElementById('chart_genl');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+            datasets: [{
+                label: '台股加權指數',
+                backgroundColor: 'rgb(255,99,132)',
+                borderColor: 'rgb(122,99,132)',
+                data: [19879, 20200, 20417, 20736, 20213, 19857, 20222, 20560, 21002, 21363, 22408, 23908],
+                borderWidth: 2
+            }]
+        },
+        // options: {
+          
+        // }
+    });
+</script>
+
+<script>
+    const ctp = document.getElementById('pie');
+    new Chart(ctp, {
+        type: 'pie',
+        data: {
+            labels: ['摩根', '麥格里', '美林', '瑞銀', '凱基', '元大', '散戶', '董監'],
+            datasets: [{
+                label: '持股',
+                backgroundColor: 'rgb(255,99,132)',
+                borderColor: 'rgb(122,99,132)',
+                data: [ 10, 5, 10, 30, 20, 5, 50, 20],
+                borderWidth: 2
+            }]
+        },
+        // options: {
+          
+        // }
+    });
+</script>
 </body>
 
 </html>
