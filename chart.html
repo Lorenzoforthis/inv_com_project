@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chart_general</title>
-    <script src="canvas.js" defer></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css.map">
+
+    <script src="/js/canvas.js" defer></script>
 </head>
+
 <body>
+    <h1>1.canvas框架示範</h1>
     <canvas id="canvas" width="500" height="400" style="border: 2px solid;"></canvas>
+
+    <h1>2.大盤線圖</h1>
+    <div class="col-8 offset-2 my-5">
+        <div class="card">
+            <canvas id="chart_genl" width="500" height="200"></canvas>
+        </div>
+    </div>
+    <script src="/js/jquery-3.7.1.js"></script>
+    <script src="/js/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('chart_genl');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: '台股加權指數',
+                    backgroundColor: 'rgb(255,99,132)',
+                    borderColor: 'rgb(122,99,132)',
+                    data: [19879, 20200, 20417, 20736, 20213, 19857, 20222, 20560, 21002, 21363, 22408, 23908],
+                    borderWidth: 2
+                }]
+            },
+            // options: {
+              
+            // }
+        });
+    </script>
 </body>
+
 </html>
