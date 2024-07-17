@@ -5,3 +5,4 @@ JS
 3. chart JS在canvas tag執行
 Git
 4. 下載Git bash, 在VS code terminal切換成bash，方可執行跟github 溝通指令
+7/17 joing by Steven
