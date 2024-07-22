@@ -90,7 +90,7 @@
     <script>
         $.ajax({
             type: "get",
-            url: "/json/abc345f3dd5d0be62324d93babdfe895_export.json",
+            url: "/json/5_export.json",
             dataType: "json",
             success: showdata,
         });
@@ -107,7 +107,7 @@
                         label: '臺灣銀行新台幣黃金存摺牌價',
                         backgroundColor: 'rgb(255,99,132)',
                         borderColor: 'rgb(122,99,132)',
-                        data: [],
+                        data: [data[0].日期,data[1].日期,data[2].日期,data[3].日期,],
                         borderWidth: 2
                     }]
                 },
