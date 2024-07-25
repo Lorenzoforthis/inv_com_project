@@ -38,9 +38,9 @@
     <script src="/js/chart.js"></script>
 
     <h1>2.1 大盤線圖+黃金API</h1>
-    <div class="col-8 offset-2 my-5">
+    <div class="col-10 offset-2 my-5">
         <div class="card">
-            <canvas id="chart_gold" width="800" height="600"></canvas>
+            <canvas id="chart_gold" width="1000" height="800"></canvas>
         </div>
     </div>
 
@@ -87,27 +87,52 @@
         });
     </script>
 
+    //202301~202401金價
     <script>
         $.ajax({
             type: "get",
             url: "/json/5_export.json",
             dataType: "json",
-            success: showdata,
+            success: showgolddata,
         });
 
-        function showdata(data) {
-            console.log(data);
+        function showgolddata(data) {
+            // console.log(data);
+            console.log(data.length);
+          
+            var pricelData = [];
+            for(let key=0;key<data.length;key++){               
+                pricelData.push(data[key]["本行買入價格(新臺幣)"]);
+             
+            }
 
+            console.log(pricelData);
+
+            
             const ctd = document.getElementById('chart_gold');
             new Chart(ctd, {
                 type: 'line',
                 data: {
-                    labels: ['Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    labels: ["202301",
+                             "202302",
+                             "202303",
+                             "202304",
+                             "202305",
+                             "202306",
+                             "202307",
+                             "202308",
+                             "202309",
+                             "202310",
+                             "202311",
+                             "202312",
+                             "202401",
+                             "202402",
+                            ],
                     datasets: [{
                         label: '臺灣銀行新台幣黃金存摺牌價',
                         backgroundColor: 'rgb(255,99,132)',
                         borderColor: 'rgb(122,99,132)',
-                        data: [data[0].日期,data[1].日期,data[2].日期,data[3].日期,],
+                        data: pricelData,
                         borderWidth: 2
                     }]
                 },
