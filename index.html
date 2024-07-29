@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart_general</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script src="/js/jquery-3.7.1.js"></script>
+    <script src="/js/chart.js"></script>
+    <script src="/js/market_gel.js"></script>
+    <style>
+        .card {
+            width: 500px;
+            /* 設置寬度為 300 像素 */
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>1.canvas框架示範</h1>
+        <canvas id="canvas" width="500" height="400" style="border: 2px solid;"></canvas>
+
+        <h1>2.股票-大盤線圖</h1>
+        <div class="col-8 offset-2 my-5">
+            <div class="card">
+                <canvas id="chart_genl" width="500" height="200"></canvas>
+            </div>
+        </div>
+
+        <h1>2-1.股票-三大法人top 前20</h1>
+        <div class="col-8 offset-2 my-5">
+            <div class="card ">
+                <canvas id="doughnut" bacstyle="width: 50dvh"></canvas>
+            </div>
+        </div>
+
+
+        <h1>3-1 黃金大盤線圖</h1>
+        <div class="col-10 offset-2 my-5">
+            <div class="card">
+                <canvas id="chart_gold" width="1000" height="800"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        const ctp = document.getElementById('doughnut');
+        new Chart(ctp, {
+            type: 'polarArea',
+            data: {
+                labels: ['摩根', '麥格里', '美林', '瑞銀', '凱基', '元大', '散戶', '董監'],
+                datasets: [{
+                    label: '持股',
+                    color: '666',
+                    backgroundColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(54, 162, 235)'
+                    ],
+                    borderColor: 'rgb(122,99,132)',
+                    data: [10, 5, 10, 30, 20, 5, 50, 20],
+                    borderWidth: 2,
+
+                }]
+            },
+            // options: {
+
+            // }
+        });
+    </script>
+
+    //202301~202401金價
+    <script>
+        $.ajax({
+            type: "get",
+            url: "/json/5_export.json",
+            dataType: "json",
+            success: showgolddata,
+        });
+
+        function showgolddata(data) {
+            // console.log(data);
+            console.log(data.length);
+
+            var pricelData = [];
+            for (let key = 0; key < data.length; key++) {
+                pricelData.push(data[key]["本行買入價格(新臺幣)"]);
+
+            }
+
+            console.log(pricelData);
+
+
+            const ctd = document.getElementById('chart_gold');
+            new Chart(ctd, {
+                type: 'line',
+                data: {
+                    labels: ["202301",
+                        "202302",
+                        "202303",
+                        "202304",
+                        "202305",
+                        "202306",
+                        "202307",
+                        "202308",
+                        "202309",
+                        "202310",
+                        "202311",
+                        "202312",
+                        "202401",
+                        "202402",
+                    ],
+                    datasets: [{
+                        label: '臺灣銀行新台幣黃金存摺牌價',
+                        backgroundColor: 'rgb(255,99,132)',
+                        borderColor: 'rgb(122,99,132)',
+                        data: pricelData,
+                        borderWidth: 2
+                    }]
+                },
+
+            });
+
+        };
+    </script>
+
+    <script src="/js/jquery-3.7.1.js"></script>
+</body>
+
+</html>
