@@ -9,6 +9,7 @@
     <script src="/js/jquery-3.7.1.js"></script>
     <script src="/js/chart.js"></script>
     <script src="/js/market_gel.js"></script>
+    <script src="/js/gold_price.js"></script>
     <style>
         .card {
             width: 500px;
@@ -19,16 +20,55 @@
 </head>
 
 <body>
+
+    <section id="s02">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="/index.html">Navbar</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                
+                  <li class="nav-item">
+                    <a class="nav-link" href="/views/market_gel.html">大盤</a>
+                  </li>
+                  <li class="nav-item">                
+                    <a class="nav-link" href="/views/holders.html">籌碼部位</a>
+                  </li>
+                  <li class="nav-item">                
+                    <a class="nav-link" href="/views/gold_price.html">黃金</a>
+                  </li>                 
+                </ul>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="loginModal" >登入</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="registerModal">註冊</button>
+              </div>
+            </div>
+          </nav>
+          <div class="modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Modal title</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </section>
     <div class="container">
         <h1>1.canvas框架示範</h1>
         <canvas id="canvas" width="500" height="400" style="border: 2px solid;"></canvas>
 
-        <h1>2.股票-大盤線圖</h1>
-        <div class="col-8 offset-2 my-5">
-            <div class="card">
-                <canvas id="chart_genl" width="500" height="200"></canvas>
-            </div>
-        </div>
+
 
         <h1>2-1.股票-三大法人top 前20</h1>
         <div class="col-8 offset-2 my-5">
@@ -36,98 +76,39 @@
                 <canvas id="doughnut" bacstyle="width: 50dvh"></canvas>
             </div>
         </div>
-
-
-        <h1>3-1 黃金大盤線圖</h1>
-        <div class="col-10 offset-2 my-5">
-            <div class="card">
-                <canvas id="chart_gold" width="1000" height="800"></canvas>
-            </div>
-        </div>
     </div>
 
 
-
-
-    <script>
-        const ctp = document.getElementById('doughnut');
-        new Chart(ctp, {
-            type: 'polarArea',
-            data: {
-                labels: ['摩根', '麥格里', '美林', '瑞銀', '凱基', '元大', '散戶', '董監'],
-                datasets: [{
-                    label: '持股',
-                    color: '666',
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)'
-                    ],
-                    borderColor: 'rgb(122,99,132)',
-                    data: [10, 5, 10, 30, 20, 5, 50, 20],
-                    borderWidth: 2,
-
-                }]
-            },
-            // options: {
-
-            // }
-        });
-    </script>
-
-    //202301~202401金價
-    <script>
-        $.ajax({
-            type: "get",
-            url: "/json/5_export.json",
-            dataType: "json",
-            success: showgolddata,
-        });
-
-        function showgolddata(data) {
-            // console.log(data);
-            console.log(data.length);
-
-            var pricelData = [];
-            for (let key = 0; key < data.length; key++) {
-                pricelData.push(data[key]["本行買入價格(新臺幣)"]);
-
-            }
-
-            console.log(pricelData);
-
-
-            const ctd = document.getElementById('chart_gold');
-            new Chart(ctd, {
-                type: 'line',
-                data: {
-                    labels: ["202301",
-                        "202302",
-                        "202303",
-                        "202304",
-                        "202305",
-                        "202306",
-                        "202307",
-                        "202308",
-                        "202309",
-                        "202310",
-                        "202311",
-                        "202312",
-                        "202401",
-                        "202402",
-                    ],
-                    datasets: [{
-                        label: '臺灣銀行新台幣黃金存摺牌價',
-                        backgroundColor: 'rgb(255,99,132)',
-                        borderColor: 'rgb(122,99,132)',
-                        data: pricelData,
-                        borderWidth: 2
-                    }]
-                },
-
+<!-- //html2canvas 
+    <section>
+      <script>
+        function doSavePic(){
+          var img = document.querySelector("gerImg");
+          html2canvas(img).then(function(canvas)){
+            data = canvas.doDataURL("image/png");
+            $ajax({
+              url:"/admin/about/about/saveImg",
+              type:"post",
+              data:{
+                data: data,
+                _token: "{{ csrf_token() }}"
+              },
+              success:function(msg){
+                doNext();
+              }
             });
+          }
+        }
+        function doNext(){
+          document.forms["form1"].action="insert";
+          document.forms["form1"].submit();
+        }
+      </script>
+    </section> -->
 
-        };
-    </script>
+
+
+
 
     <script src="/js/jquery-3.7.1.js"></script>
 </body>
